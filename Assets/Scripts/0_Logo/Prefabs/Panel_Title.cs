@@ -1,0 +1,71 @@
+using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Text;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class Panel_Title : Panel_Base
+{
+    //   
+    [SerializeField] Com_Title_Logo _comLogo = null;
+    [SerializeField] Com_Title_Download _comDownload = null;
+    [SerializeField] Com_Title_Login _comLogin = null;
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void Awake()
+    {
+        base.Awake();
+
+        pPanelType = EPanelType.Title;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnShowPanel()
+    {
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnHidePanel()
+    {
+
+    }
+
+    public void Init()
+    {
+        //
+        _comLogo.gameObject.SetActive(LogoScene.pCurState.pState == ELogoState.Logo);
+        _comDownload.gameObject.SetActive(LogoScene.pCurState.pState == ELogoState.Download);
+        _comLogin.gameObject.SetActive(LogoScene.pCurState.pState == ELogoState.LogIn);
+
+        switch (LogoScene.pCurState.pState)
+        {
+            case ELogoState.Logo    : _comLogo    .Init(); break;
+            case ELogoState.Download: _comDownload.Init(); break;
+            case ELogoState.LogIn   : _comLogin   .Init(); break;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void Tick()
+    {
+        switch (LogoScene.pCurState.pState)
+        {
+            case ELogoState.Logo    : _comLogo    .Tick(); break;
+            case ELogoState.Download: _comDownload.Tick(); break;
+            case ELogoState.LogIn   : _comLogin   .Tick(); break;
+        }
+    }
+}
